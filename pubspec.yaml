@@ -61,6 +61,10 @@ dependencies:
   # https://pub.dev/packages/fpdart:
   fpdart: ^1.1.0
 
+  # in-app localization with Map data.
+  # https://pub.dev/packages/flutter_localization
+  flutter_localization: ^0.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

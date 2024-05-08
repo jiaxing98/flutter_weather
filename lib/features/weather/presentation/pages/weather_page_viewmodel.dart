@@ -17,7 +17,7 @@ class WeatherPageVM extends ApiChangeNotifier {
 
     result.fold(
       (l) => print(l.message),
-      (r) => print(r),
+      (r) => weather = r,
     );
   }
 }
