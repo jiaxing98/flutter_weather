@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
+import 'package:flutter_weather/core/translations/app_locale.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CityNameTextField extends StatefulWidget {
@@ -36,7 +38,7 @@ class _CityNameTextFieldState extends State<CityNameTextField> {
     return TextField(
       textAlign: TextAlign.center,
       decoration: InputDecoration(
-        hintText: 'Enter city name',
+        hintText: AppLocale.searchBarHint.getString(context),
         fillColor: const Color(0xffF3F3F3),
         filled: true,
         focusedBorder: OutlineInputBorder(
