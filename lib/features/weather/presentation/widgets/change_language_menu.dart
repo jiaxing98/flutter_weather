@@ -23,9 +23,12 @@ class _ChangeLanguageMenuState extends State<ChangeLanguageMenu> {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        showDialog(
+        showGeneralDialog(
           context: context,
-          builder: (ctx) => AlertDialog(
+          barrierDismissible: true,
+          barrierLabel:
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
+          pageBuilder: (ctx, anim, secondaryAnim) => AlertDialog(
             title: const Text(
               "Change Language",
               style: TextStyle(fontWeight: FontWeight.bold),
@@ -63,5 +66,6 @@ class _ChangeLanguageMenuState extends State<ChangeLanguageMenu> {
       selectedLanguage = languageCode;
       localization.translate(languageCode);
     });
+    Navigator.of(context).pop();
   }
 }
