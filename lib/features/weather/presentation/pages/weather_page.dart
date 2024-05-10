@@ -5,6 +5,7 @@ import 'package:flutter_weather/core/utils/api_consumer.dart';
 import 'package:flutter_weather/features/weather/presentation/pages/weather_page_viewmodel.dart';
 import 'package:flutter_weather/features/weather/presentation/widgets/change_language_menu.dart';
 import 'package:flutter_weather/features/weather/presentation/widgets/city_name_textfield.dart';
+import 'package:flutter_weather/features/weather/presentation/widgets/weather_drawer.dart';
 import 'package:flutter_weather/features/weather/presentation/widgets/weather_table.dart';
 import 'package:flutter_weather/main.dart';
 import 'package:provider/provider.dart';
@@ -16,16 +17,16 @@ class WeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xff1d1e22),
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         title: Text(
           AppLocale.title.getString(context),
-          style: const TextStyle(color: Colors.white),
         ),
         centerTitle: true,
         actions: [
           if (localization.currentLocale != null) const ChangeLanguageMenu(),
         ],
       ),
+      drawer: WeatherDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),

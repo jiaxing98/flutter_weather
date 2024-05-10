@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/core/networks/weather_api_config.dart';
 import 'package:flutter_weather/features/weather/domain/entities/weather_entity.dart';
 
 class WeatherTable extends StatelessWidget {
@@ -24,6 +25,13 @@ class WeatherTable extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        Image(
+          image: NetworkImage(
+            WeatherApiConfig.weatherIcon(
+              weather.iconCode,
+            ),
+          ),
         ),
         const SizedBox(height: 8.0),
         Text(

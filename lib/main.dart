@@ -1,19 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
-import 'package:flutter_weather/core/dependencies/data_source_collection.dart';
-import 'package:flutter_weather/core/dependencies/repository_collection.dart';
-import 'package:flutter_weather/core/dependencies/usecase_collection.dart';
-import 'package:flutter_weather/core/dependencies/viewmodel_collection.dart';
+import 'package:flutter_weather/core/dependencies/data_sources.dart';
+import 'package:flutter_weather/core/dependencies/repositories.dart';
+import 'package:flutter_weather/core/dependencies/usecases.dart';
+import 'package:flutter_weather/core/dependencies/utils.dart';
+import 'package:flutter_weather/core/dependencies/viewmodels.dart';
+import 'package:flutter_weather/core/themes/theme_provider.dart';
 import 'package:flutter_weather/core/translations/app_locale.dart';
 import 'package:flutter_weather/features/weather/presentation/pages/weather_page.dart';
 import 'package:flutter_weather/features/weather/presentation/pages/weather_page_viewmodel.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // inject dependencies
+  injectUtils();
+  injectDataSources();
+  injectRepositories();
+  injectUseCases();
+  injectViewModels();
+
+  final prefs = await utils.getAsync<SharedPreferences>();
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(prefs: prefs),
+      child: const MyApp(),
+    ),
+  );
 }
 
-final FlutterLocalization localization = FlutterLocalization.instance;
+final FlutterLocalization localization = utils.get<FlutterLocalization>();
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -26,7 +45,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     _setupLocalization();
-    _injectDependencies();
     super.initState();
   }
 
@@ -35,15 +53,12 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => viewModel.get<WeatherPageVM>(),
+          create: (_) => viewModels.get<WeatherPageVM>(),
         ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        theme: Provider.of<ThemeProvider>(context).currentTheme,
         supportedLocales: localization.supportedLocales,
         localizationsDelegates: localization.localizationsDelegates,
         home: const WeatherPage(),
@@ -60,12 +75,5 @@ class _MyAppState extends State<MyApp> {
       initLanguageCode: AppLocale.en,
     );
     localization.onTranslatedLanguage = (locale) => setState(() {});
-  }
-
-  void _injectDependencies() {
-    dataSource.setup();
-    repository.setup();
-    usecase.setup();
-    viewModel.setup();
   }
 }

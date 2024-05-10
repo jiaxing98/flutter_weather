@@ -54,10 +54,7 @@ class _ChangeLanguageMenuState extends State<ChangeLanguageMenu> {
           ),
         );
       },
-      icon: const Icon(
-        Icons.language,
-        color: Colors.white,
-      ),
+      icon: const Icon(Icons.language),
     );
   }
 

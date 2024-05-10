@@ -39,14 +39,6 @@ class _CityNameTextFieldState extends State<CityNameTextField> {
       textAlign: TextAlign.center,
       decoration: InputDecoration(
         hintText: AppLocale.searchBarHint.getString(context),
-        fillColor: const Color(0xffF3F3F3),
-        filled: true,
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(10)),
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(10)),
       ),
       onChanged: (value) {
         _debouncedSearchRx.add(value);

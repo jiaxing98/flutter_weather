@@ -12,4 +12,7 @@ abstract class WeatherApiConfig {
         validateStatus: (statusCode) =>
             (statusCode != null && statusCode >= 200 && statusCode <= 300),
       );
+
+  static String weatherIcon(String iconCode) =>
+      'http://openweathermap.org/img/wn/$iconCode@2x.png';
 }

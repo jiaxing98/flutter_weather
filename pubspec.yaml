@@ -65,6 +65,14 @@ dependencies:
   # https://pub.dev/packages/flutter_localization
   flutter_localization: ^0.2.0
 
+  # A Flutter package to use fonts from fonts.google.com.
+  # https://pub.dev/packages/google_fonts
+  google_fonts: ^6.2.1
+
+  # Wraps platform-specific persistent storage for simple data
+  # https://pub.dev/packages/shared_preferences
+  shared_preferences: ^2.2.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

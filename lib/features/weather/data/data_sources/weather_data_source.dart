@@ -22,6 +22,7 @@ class WeatherDataSourceImpl extends WeatherDataSource
         queryParameters: {
           'q': cityName,
           'appid': WeatherApiConfig.apiKey,
+          'units': 'metric',
         },
       );
       return WeatherModel.fromJson(response.data);
