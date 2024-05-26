@@ -7,8 +7,8 @@ import 'package:flutter_weather/core/dependencies/utils.dart';
 import 'package:flutter_weather/core/dependencies/viewmodels.dart';
 import 'package:flutter_weather/core/themes/theme_provider.dart';
 import 'package:flutter_weather/core/translations/app_locale.dart';
-import 'package:flutter_weather/features/weather/presentation/pages/weather_page.dart';
-import 'package:flutter_weather/features/weather/presentation/pages/weather_page_viewmodel.dart';
+import 'package:flutter_weather/features/weather/presentation/dashboard/dashboard_scaffold_viewmodel.dart';
+import 'package:flutter_weather/router/router_config.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,8 +32,6 @@ void main() async {
   );
 }
 
-final FlutterLocalization localization = utils.get<FlutterLocalization>();
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -42,6 +40,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final FlutterLocalization localization = utils.get<FlutterLocalization>();
+
   @override
   void initState() {
     _setupLocalization();
@@ -53,15 +53,15 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => viewModels.get<WeatherPageVM>(),
+          create: (_) => viewModels.get<DashboardScaffoldVM>(),
         ),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerConfig: router,
         title: 'Flutter Demo',
         theme: Provider.of<ThemeProvider>(context).currentTheme,
         supportedLocales: localization.supportedLocales,
         localizationsDelegates: localization.localizationsDelegates,
-        home: const WeatherPage(),
       ),
     );
   }

@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_weather/core/translations/app_locale.dart';
 import 'package:flutter_weather/core/utils/api_consumer.dart';
-import 'package:flutter_weather/features/weather/presentation/pages/weather_page_viewmodel.dart';
-import 'package:flutter_weather/features/weather/presentation/widgets/change_language_menu.dart';
-import 'package:flutter_weather/features/weather/presentation/widgets/city_name_textfield.dart';
-import 'package:flutter_weather/features/weather/presentation/widgets/weather_drawer.dart';
-import 'package:flutter_weather/features/weather/presentation/widgets/weather_table.dart';
-import 'package:flutter_weather/main.dart';
+import 'package:flutter_weather/features/weather/presentation/dashboard/dashboard_scaffold.dart';
+import 'package:flutter_weather/features/weather/presentation/weather_info/city_name_text_field.dart';
+import 'package:flutter_weather/features/weather/presentation/weather_info/weather_page_viewmodel.dart';
+import 'package:flutter_weather/features/weather/presentation/weather_info/weather_table.dart';
 import 'package:provider/provider.dart';
 
 class WeatherPage extends StatelessWidget {
@@ -15,19 +13,11 @@ class WeatherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
-        title: Text(
-          AppLocale.title.getString(context),
-        ),
-        centerTitle: true,
-        actions: [
-          if (localization.currentLocale != null) const ChangeLanguageMenu(),
-        ],
+    return DashboardScaffold(
+      appBarTitle: Text(
+        AppLocale.title.getString(context),
       ),
-      drawer: WeatherDrawer(),
-      body: SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Consumer<WeatherPageVM>(
@@ -53,12 +43,6 @@ class WeatherPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildErrorView(String message) {
-    return Center(
-      child: Text(message),
     );
   }
 }

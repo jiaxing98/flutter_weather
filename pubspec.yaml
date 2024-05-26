@@ -73,6 +73,11 @@ dependencies:
   # https://pub.dev/packages/shared_preferences
   shared_preferences: ^2.2.3
 
+  # A declarative routing package for Flutter that uses the Router API to provide a convenient,
+  # url-based API for navigating between different screens.
+  # https://pub.dev/packages/go_router
+  go_router: ^14.1.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
