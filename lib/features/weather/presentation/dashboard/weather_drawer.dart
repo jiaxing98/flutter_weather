@@ -42,7 +42,10 @@ class _WeatherDrawerState extends State<WeatherDrawer> {
                     setState(() {
                       _selected = _Selection.page1;
                     });
-                    context.go(RouteName.first);
+                    context.goNamed(
+                      RouteName.first,
+                      pathParameters: {"id": "1"},
+                    );
                   },
                 ),
                 ListTile(
@@ -52,7 +55,23 @@ class _WeatherDrawerState extends State<WeatherDrawer> {
                     setState(() {
                       _selected = _Selection.page2;
                     });
-                    context.go(RouteName.second);
+                    context.goNamed(
+                      RouteName.second,
+                      queryParameters: {
+                        "movie": "inception",
+                        // "anime": "gintama",
+                      },
+                    );
+                  },
+                ),
+                ListTile(
+                  selected: _selected == _Selection.page2,
+                  title: Text("Page 3"),
+                  onTap: () {
+                    setState(() {
+                      _selected = _Selection.page2;
+                    });
+                    context.go(RouteName.third);
                   },
                 ),
               ],
