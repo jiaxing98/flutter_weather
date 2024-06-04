@@ -74,6 +74,11 @@ dependencies:
   # https://pub.dev/packages/go_router
   go_router: ^14.1.3
 
+  # Android App Links, Deep Links, iOS Universal Links and Custom URL schemes handler
+  # (desktop included linux, macOS, Windows).
+  # https://pub.dev/packages/app_links
+  app_links: ^6.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
