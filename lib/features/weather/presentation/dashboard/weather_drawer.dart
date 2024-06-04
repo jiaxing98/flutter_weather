@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/core/dependencies/utils.dart';
 import 'package:flutter_weather/core/themes/theme_provider.dart';
+import 'package:flutter_weather/core/utils/authenticate_helper.dart';
 import 'package:flutter_weather/router/route_name.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +13,8 @@ class WeatherDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authHelper = utils.get<AuthenticateHelper>();
+
     return Drawer(
       child: SafeArea(
         child: Column(
@@ -53,6 +57,14 @@ class WeatherDrawer extends StatelessWidget {
                   title: Text("Page 3"),
                   onTap: () {
                     context.go(RouteName.third);
+                  },
+                ),
+                ListTile(
+                  selected: false,
+                  title: Text("Logout"),
+                  onTap: () {
+                    authHelper.logout();
+                    context.goNamed(RouteName.home);
                   },
                 ),
               ],

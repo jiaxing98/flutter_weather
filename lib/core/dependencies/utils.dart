@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:flutter_weather/core/utils/authenticate_helper.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,4 +14,6 @@ void injectUtils() {
   utils.registerSingletonAsync(
     () => SharedPreferences.getInstance(),
   );
+
+  utils.registerSingleton<AuthenticateHelper>(AuthenticateHelper());
 }
