@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/core/exceptions/app_exception.dart';
 import 'package:flutter_weather/core/utils/api_change_notifier.dart';
-import 'package:flutter_weather/core/utils/api_exception.dart';
 import 'package:provider/provider.dart';
 
 class ApiConsumer<T extends ApiChangeNotifier> extends StatelessWidget {
   final Widget Function(BuildContext, T, Widget?) onInit;
   final Widget Function(BuildContext, T, Widget?) onLoading;
-  final Widget Function(BuildContext, T, ApiException, Widget?) onError;
+  final Widget Function(BuildContext, T, Exception, Widget?) onError;
   final Widget Function(BuildContext, T, Widget?) onCompleted;
   final Widget? Function()? child;
 
@@ -36,8 +36,8 @@ class ApiConsumer<T extends ApiChangeNotifier> extends StatelessWidget {
         );
       case ApiState.exception:
         return Consumer<T>(
-          builder: (context, value, child) => onError(context, value,
-              notifier.exception ?? UnknownApiException(), child),
+          builder: (context, value, child) => onError(
+              context, value, notifier.exception ?? UnknownException(), child),
           child: child?.call(),
         );
       case ApiState.completed:

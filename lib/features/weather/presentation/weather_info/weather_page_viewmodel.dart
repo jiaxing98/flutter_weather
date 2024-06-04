@@ -11,13 +11,12 @@ class WeatherPageVM extends ApiChangeNotifier {
       : _getCurrentWeatherUseCase = getCurrentWeatherUseCase;
 
   Future<void> getWeatherData(String cityName) async {
-    final result = await apiCalled(
-      _getCurrentWeatherUseCase(cityName: cityName),
-    );
-
-    result.fold(
-      (l) => print(l.message),
-      (r) => weather = r,
-    );
+    try {
+      onLoading();
+      weather = await _getCurrentWeatherUseCase(cityName: cityName);
+      onCompleted();
+    } on Exception catch (ex) {
+      onException(ex);
+    }
   }
 }

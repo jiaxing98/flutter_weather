@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_weather/core/translations/app_locale.dart';
 import 'package:flutter_weather/core/utils/api_consumer.dart';
+import 'package:flutter_weather/core/utils/api_exception.dart';
 import 'package:flutter_weather/features/weather/presentation/dashboard/dashboard_scaffold.dart';
 import 'package:flutter_weather/features/weather/presentation/weather_info/city_name_text_field.dart';
 import 'package:flutter_weather/features/weather/presentation/weather_info/weather_page_viewmodel.dart';
@@ -33,7 +34,9 @@ class WeatherPage extends StatelessWidget {
                   onLoading: (ctx, value, child) =>
                       const CircularProgressIndicator(),
                   onError: (ctx, value, ex, child) => Center(
-                    child: Text(ex.message),
+                    child: Text(
+                      ex is ApiException ? ex.message : "Something went wrong",
+                    ),
                   ),
                   onCompleted: (ctx, value, child) =>
                       WeatherTable(weather: value.weather),
